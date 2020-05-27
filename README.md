@@ -1,0 +1,1 @@
+Homework assignments for WSU CptS 451: Intro. to Database Systems, Summer 2020
