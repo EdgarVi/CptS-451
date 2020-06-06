@@ -313,4 +313,3 @@ INSERT INTO PostAbout (postID, classID, assignmentNo ) VALUES
     ( 18 ,          '2019F01CptS355' , 5 ),
     ( 19 ,          '2019F01CptS355' , 6 ),
     ( 20 ,          '2019F01CptS355' , 7 );
-
