@@ -19,6 +19,12 @@ FROM (
 ) AS TEMP) as Temp, Class
 WHERE Temp.classID = Class.classID AND Temp.numStudents > 10;
 
+-- Problem 3
+SELECT major, coursenum, title
+FROM Course 
+LEFT OUTER JOIN Prerequisite prereq USING (major, coursenum)
+WHERE prereq.major IS NULL;
+
 -- Problem 4
 SELECT Post.userID, Post.timestamp, Temp.count
 FROM (
