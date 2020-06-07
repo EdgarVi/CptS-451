@@ -18,3 +18,11 @@ FROM (
     GROUP BY classID
 ) AS TEMP) as Temp, Class
 WHERE Temp.classID = Class.classID AND Temp.numStudents > 10;
+
+-- Problem 5
+SELECT  classID, major, coursenum, semester, year, enrollmentlimit
+FROM Class
+WHERE enrollmentlimit = (
+    SELECT MAX(enrollmentlimit)
+    FROM Class
+);
