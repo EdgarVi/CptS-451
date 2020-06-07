@@ -19,6 +19,17 @@ FROM (
 ) AS TEMP) as Temp, Class
 WHERE Temp.classID = Class.classID AND Temp.numStudents > 10;
 
+-- Problem 4
+SELECT Post.userID, Post.timestamp, Temp.count
+FROM (
+    SELECT userID, timestamp, kind, COUNT(timestamp) as count
+    FROM Post
+    WHERE kind = 'Comment'
+    GROUP BY userID, timestamp, kind
+    ) AS Temp, Post
+WHERE Temp.userID = Post.userID AND Temp.count > 1
+GROUP BY Post.userID, Post.timestamp, Temp.count;
+
 -- Problem 5
 SELECT  classID, major, coursenum, semester, year, enrollmentlimit
 FROM Class
