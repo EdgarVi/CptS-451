@@ -37,3 +37,12 @@ WHERE enrollmentlimit = (
     SELECT MAX(enrollmentlimit)
     FROM Class
 );
+
+-- Problem 6
+SELECT Class.classID, Class.major, Class.coursenum, Class.semester, Class.year, Temp.enrollmentlimit
+FROM Class
+INNER JOIN (
+    SELECT major, MAX(enrollmentlimit) AS enrollmentlimit
+    FROM Class
+    GROUP BY major
+) Temp ON Class.major = Temp.major AND Class.enrollmentlimit = Temp.enrollmentlimit;
