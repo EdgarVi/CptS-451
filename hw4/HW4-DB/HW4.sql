@@ -52,3 +52,24 @@ INNER JOIN (
     FROM Class
     GROUP BY major
 ) Temp ON Class.major = Temp.major AND Class.enrollmentlimit = Temp.enrollmentlimit;
+
+-- Problem 7
+SELECT UserTable.firstname, UserTable.lastname, UserTable.userID, sec.csgpa, er.GPA
+FROM UserTable
+INNER JOIN (
+    SELECT studentID, AVG(grade) as GPA
+    FROM Enroll
+    GROUP BY studentID
+) er ON UserTable.userID = er.studentID
+INNER JOIN (
+    SELECT Enroll.studentID, AVG(enroll.grade) csgpa
+    FROM Enroll
+    INNER JOIN (
+        SELECT *
+        FROM Class
+        WHERE major = 'CptS'
+        GROUP BY classID
+    ) cl ON Enroll.classID = cl.classID
+    GROUP BY Enroll.studentID
+) sec ON UserTable.userID = sec.studentID
+WHERE sec.csgpa > er.GPA;
