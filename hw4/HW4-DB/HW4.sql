@@ -73,3 +73,5 @@ INNER JOIN (
     GROUP BY Enroll.studentID
 ) sec ON UserTable.userID = sec.studentID
 WHERE sec.csgpa > er.GPA;
+
+-- Problem 8
