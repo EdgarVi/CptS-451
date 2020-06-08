@@ -75,21 +75,17 @@ INNER JOIN (
 WHERE sec.csgpa > er.GPA;
 
 -- Problem 8 
-SELECT Student.studentid, sub.classid, sub.assignmentno, sub.submissiondate, sub.score
+SELECT sub1.studentID, sub2.studentID, sub2.classID, sub2.assignmentNo, sub2.submissionDate, sub2.score
 FROM Student
 INNER JOIN (
     SELECT *
     FROM Submit
-) AS sub ON sub.studentID = Student.studentID
+) AS sub1 ON sub1.studentID = Student.studentID
 INNER JOIN (
-    SELECT *
-    FROM Assignment
-    INNER JOIN (
-        SELECT *
-        FROM Class
-        WHERE major = 'CptS' AND coursenum = '451'
-    ) cl ON cl.classID = Assignment.classID
-) AS ca ON ca.assignmentNo = sub.assignmentNo;
+    SELECT * 
+    FROM Submit
+) AS sub2 ON sub2.score = sub1.score AND sub2.submissiondate = sub1.submissiondate
+WHERE sub1.studentID > sub2.studentID;
 
 -- Problem 9
 SELECT Class.major, Class.coursenum, Class.enrollmentlimit, er.numstudents
