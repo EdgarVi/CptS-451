@@ -74,4 +74,33 @@ INNER JOIN (
 ) sec ON UserTable.userID = sec.studentID
 WHERE sec.csgpa > er.GPA;
 
--- Problem 8
+-- Problem 9
+SELECT Class.major, Class.coursenum, Class.enrollmentlimit, er.numstudents
+FROM Class
+INNER JOIN (
+    SELECT classID, COUNT(studentID) as numstudents
+    FROM Enroll
+    GROUP BY classID
+) as er on Class.classID = er.classID
+WHERE Class.enrollmentlimit < er.numstudents;
+
+-- Problem 10
+SELECT Student.studentID, po.classID, po.assignmentNo, po.content
+FROM Student
+INNER JOIN (
+    SELECT userID, classID, assignmentNo, content
+    FROM Post
+    INNER JOIN (
+        SELECT *
+        FROM PostAbout
+    ) AS pa ON Post.postID = pa.postID
+) AS po ON po.userID = Student.studentID
+INNER JOIN (
+    SELECT Student.studentID
+    FROM Student
+    WHERE NOT EXISTS (
+        SELECT NULL
+        FROM Submit
+        WHERE Submit.studentID = Student.studentID
+    ) 
+) AS sub ON sub.studentID = Student.studentID;
