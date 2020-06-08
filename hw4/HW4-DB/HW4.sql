@@ -74,6 +74,23 @@ INNER JOIN (
 ) sec ON UserTable.userID = sec.studentID
 WHERE sec.csgpa > er.GPA;
 
+-- Problem 8 
+SELECT Student.studentid, sub.classid, sub.assignmentno, sub.submissiondate, sub.score
+FROM Student
+INNER JOIN (
+    SELECT *
+    FROM Submit
+) AS sub ON sub.studentID = Student.studentID
+INNER JOIN (
+    SELECT *
+    FROM Assignment
+    INNER JOIN (
+        SELECT *
+        FROM Class
+        WHERE major = 'CptS' AND coursenum = '451'
+    ) cl ON cl.classID = Assignment.classID
+) AS ca ON ca.assignmentNo = sub.assignmentNo;
+
 -- Problem 9
 SELECT Class.major, Class.coursenum, Class.enrollmentlimit, er.numstudents
 FROM Class
